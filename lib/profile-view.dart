@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_practice/form-page.dart';
+import 'package:flutter_practice/widgets/data-profile.dart';
+
+class ProfileView extends StatefulWidget {
+  final User user;
+  
+  const ProfileView({super.key, required this.user});
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> { 
+  @override
+  Widget build(BuildContext context) {
+    final user = widget.user;
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Container(
+              child: Center(
+                child: Image.file(
+                  user.profile!,
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.cover
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              child: Column(
+                children: [
+                  DataProfile(name: 'Nombre : ', valor: user.name),
+                  DataProfile(name: 'Nombre : ', valor: user.lastname),
+                  DataProfile(name: 'Nombre : ', valor: user.number.toString()),
+                  DataProfile(name: 'Nombre : ', valor: user.address),
+                  DataProfile(name: 'Nombre : ', valor: user.email),
+                  // DataProfile(name: 'Nombre : ', valor: user.password)
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
