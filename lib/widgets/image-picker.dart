@@ -35,7 +35,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       children: <Widget>[
         ElevatedButton(
           onPressed: _pickImage,
-          child: Text('Pick Image from Gallery'),
+          child: Text('Seleccionar imagen'),
         ),
         _image != null
             ? Image.file(
@@ -44,7 +44,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 height: 100,
                 fit: BoxFit.cover,
               )
-            : Text('No image selected.'),
+            : Text('Imagen no seleccionada.'),
         SizedBox(height: 20),
       ],
     );

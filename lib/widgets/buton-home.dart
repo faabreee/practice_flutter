@@ -30,7 +30,7 @@ class ButtonHome extends StatelessWidget {
         ),
         child: Text(
           nombre,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ) 
       ),
     );

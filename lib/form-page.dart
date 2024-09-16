@@ -34,35 +34,42 @@ class _FormPageState extends State<FormPage> {
                 "Formulario",
                 style: TextStyle(fontSize: 30),
               ),
-              FormSection(getName: (value) {
-                setState(() {
-                  name = value;
-                });
-              }, getLastName: (value) {
-                setState(() {
-                  lastname = value;
-                });
-              }, getNumber: (value) {
-                setState(() {
-                  number = int.parse(value);
-                });
-              }, getAddress: (value) {
-                setState(() {
-                  address = value;
-                });
-              }, getEmail: (value) {
-                setState(() {
-                  email = value;
-                });
-              }, getPassword: (value) {
-                setState(() {
-                  password = value;
-                });
-              }, getProfile: (file) {
-                setState(() {
-                  profile = file;
-                });
-              }),
+              FormSection(
+                getName: (value) {
+                  setState(() {
+                    name = value;
+                  });
+                }, 
+                getLastName: (value) {
+                  setState(() {
+                    lastname = value;
+                  });
+                }, 
+                getNumber: (value) {
+                  setState(() {
+                    number = int.parse(value);
+                  });
+                }, 
+                getAddress: (value) {
+                  setState(() {
+                    address = value;
+                  });
+                }, 
+                getEmail: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                }, 
+                getPassword: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                }, 
+                getProfile: (file) {
+                  setState(() {
+                    profile = file;
+                  });
+                }),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: SubmitButton(
@@ -77,8 +84,7 @@ class _FormPageState extends State<FormPage> {
                         profile: profile);
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfileView(user: user)));
+                        MaterialPageRoute(builder: (context) => ProfileView(user: user)));
                   },
                 ),
               ),

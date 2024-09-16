@@ -5,6 +5,7 @@ import 'package:flutter_practice/widgets/image-picker.dart';
 import 'package:flutter_practice/widgets/input-form.dart';
 
 class FormSection extends StatelessWidget {
+  //CallBacks, Closure
   final ValueChanged<String> getName;
   final ValueChanged<String> getLastName;
   final ValueChanged<String> getNumber;
@@ -23,6 +24,9 @@ class FormSection extends StatelessWidget {
     return Column(
       children: [
         InputForm(title: "Nombre", icon: const Icon(Icons.person), method: getName),
+        InputForm(title: "hola", icon: Icon(Icons.abc_sharp), method: (value) {
+          
+        },),
         InputForm(title: "Apellido", icon: const Icon(Icons.person_2_outlined), method: getLastName),
         InputForm(title: "Telefono", icon: const Icon(Icons.phone_android,), method: getNumber),
         InputForm(title: "Ubicacion", icon: const Icon(Icons.directions,), method: getAddress),

@@ -35,11 +35,11 @@ class _ProfileViewState extends State<ProfileView> {
               child: Column(
                 children: [
                   DataProfile(name: 'Nombre : ', valor: user.name),
-                  DataProfile(name: 'Nombre : ', valor: user.lastname),
-                  DataProfile(name: 'Nombre : ', valor: user.number.toString()),
-                  DataProfile(name: 'Nombre : ', valor: user.address),
-                  DataProfile(name: 'Nombre : ', valor: user.email),
-                  // DataProfile(name: 'Nombre : ', valor: user.password)
+                  DataProfile(name: 'Apellido : ', valor: user.lastname),
+                  DataProfile(name: 'Telefono : ', valor: user.number.toString()),
+                  DataProfile(name: 'Direccion : ', valor: user.address),
+                  DataProfile(name: 'Email : ', valor: user.email),
+                  DataProfile(name: 'Contraseña : ', valor: user.password)
                 ],
               ),
             )

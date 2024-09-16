@@ -12,30 +12,18 @@ class ApiView extends StatefulWidget {
 class _ApiViewState extends State<ApiView> {
   
   late Future<List<Pokemon>> futurePokemonList;
-  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     futurePokemonList = getPokemonList();
-    _scrollController.addListener(_onScroll);
-  }
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-  void _onScroll() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-      log("El último Pokémon está visible");
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Pokémon'),
+        title: const Text('Lista de Pokemon'),
       ),
       body: Center(
         child: FutureBuilder<List<Pokemon>>(

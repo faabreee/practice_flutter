@@ -13,16 +13,16 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
-  String _coordinates = "Click on the map";
+  String _coordenadas = "";
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(-11.989210191376824,-77.06470494263792),
+  static const CameraPosition _inicialPosicion = CameraPosition(
+    target: LatLng(-11.9757, -77.0606),
     zoom: 14.4746,
   );
 
-  static const CameraPosition _kLake = CameraPosition(
+  static const CameraPosition _camaraPosicion = CameraPosition(
     bearing: 192.8334901395799,
-    target: LatLng(-11.990609737563338, -77.066976020058),
+    target: LatLng(-11.9757, -77.0606),
     tilt: 59.440717697143555,
     zoom: 19.151926040649414,
   );
@@ -30,41 +30,34 @@ class _MapViewState extends State<MapView> {
   @override
   void initState() {
     super.initState();
-    _checkPermissions();
+    _getPermiso();
   }
 
-  Future<void> _checkPermissions() async {
+  Future<void> _getPermiso() async {
     final status = await Permission.location.request();
 
     if (status.isGranted) {
-      _getCurrentLocation();
+      _getCoordenadas();
     } else {
-      print('Location permission denied.');
+      print('Permiso denegafo');
     }
   }
 
-  Future<void> _getCurrentLocation() async {
-    try {
-      final position = await Geolocator.getCurrentPosition();
-      print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
-      
-      // Optionally move the camera to the current location
-      final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(position.latitude, position.longitude),
-        ),
-      );
-    } catch (e) {
-      print('Error getting location: $e');
-    }
+  Future<void> _getCoordenadas() async {
+    final position = await Geolocator.getCurrentPosition();
+    print('Coordenadas: ${position.latitude}, ${position.longitude}');
+  }
+
+  Future<void> _iraPosicion() async {
+    final GoogleMapController controller = await _controller.future;
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_camaraPosicion));
   }
   
-  void _onMapTapped(LatLng position) {
+  void _tocarMapa(LatLng position) {
     setState(() {
-      _coordinates = 'Latitude: ${position.latitude}, Longitude: ${position.longitude}';
+      _coordenadas = 'Coordenadas: ${position.latitude}, ${position.longitude}';
     });
-    print(_coordinates);
+    print(_coordenadas);
   }
 
   @override
@@ -75,33 +68,30 @@ class _MapViewState extends State<MapView> {
         zoomControlsEnabled: false,
         myLocationButtonEnabled: true,
         mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: _inicialPosicion,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        onTap: _onMapTapped,
+        onTap: _tocarMapa,
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            onPressed: _goToTheLake,
-            child: const Icon(Icons.directions_boat),
-            backgroundColor: Colors.blue,
-          ),
-          Container(
-            child: Text(
-              _coordinates,
-              style: TextStyle(color: Colors.amber, backgroundColor: Colors.black, fontSize: 20),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _iraPosicion,
+              backgroundColor: Colors.blue,
+              child: const Icon(Icons.send_rounded),
             ),
-          )
-        ],
+            const SizedBox(height: 16),
+            Text(
+                _coordenadas,
+                style: TextStyle(color: Colors.amber, fontSize: 16, backgroundColor: Colors.black.withOpacity(0.6)),
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
