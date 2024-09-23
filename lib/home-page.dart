@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/api-view.dart';
+import 'package:flutter_practice/dualaction-view.dart';
 import 'package:flutter_practice/form-page.dart';
+import 'package:flutter_practice/location-client.dart';
 import 'package:flutter_practice/map-view.dart';
+import 'package:flutter_practice/stopwatch-view.dart';
 import 'package:flutter_practice/widgets/buton-home.dart';
 import 'package:flutter_practice/widgets/minio-view.dart';
 // import 'package:flutter_practice/widgets/map-view.dart';
@@ -19,7 +22,7 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(70.0),
+          padding: const EdgeInsets.all(10.0),
           child: Wrap(
             spacing: 20,
             runSpacing: 20,
@@ -27,7 +30,11 @@ class _HomePage extends State<HomePage> {
               ButtonHome(nombre: "Formulario", route: FormPage()),
               ButtonHome(nombre: "Consumir libreria de Google Maps", route: MapView()),
               ButtonHome(nombre: "Consumo de api", route: ApiView()),
-              ButtonHome(nombre: "?", route: MinioView()),
+              ButtonHome(nombre: "JsonPlaceholder Api", route: MinioView()),
+
+              ButtonHome(nombre: "Cliente Localizador", route: LocationClientView()),
+              ButtonHome(nombre: "Action Dual", route: DualActionView()),
+              ButtonHome(nombre: "Cronometro", route: StopWatchView()),
             ],
           ),
         ),
