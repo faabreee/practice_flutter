@@ -35,7 +35,7 @@ class _DualActionViewState extends State<DualActionView> {
               onPressed: () {
                 ejecutarMetodos();
               },
-              child: Text('Ejecutar Métodos'),
+              child: Text('Boton'),
             ),
           ],
         ),
@@ -59,14 +59,14 @@ class _DualActionViewState extends State<DualActionView> {
   Future<void> metodo1() async {
     await Future.delayed(Duration(seconds: 5)); // Simula una tarea que toma tiempo
     setState(() {
-      _resultadoMetodo1 = "Método 1 completado";  // Actualizar cuando termine
+      _resultadoMetodo1 = "Success";  // Actualizar cuando termine
     });
   }
 
   // Método 2: emite un valor usando un callback antes de que termine el método 1
   void metodo2ConCallback(Function(String) callback) {
     Future.delayed(Duration(seconds: 1), () {
-      callback("Método 2 emitió valor");  // Llama al callback después de 1 segundo
+      callback("Success");  // Llama al callback después de 1 segundo
     });
   }
 }

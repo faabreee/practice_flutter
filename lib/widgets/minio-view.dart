@@ -10,11 +10,10 @@ class MinioView extends StatefulWidget {
 }
 
 class _MinioViewState extends State<MinioView> {
-
   late Future<List<JsonPlaceholder>> futureJsonPlaceholder;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     futureJsonPlaceholder = getJsonPlaceholder();
   }
@@ -22,90 +21,79 @@ class _MinioViewState extends State<MinioView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.blue),
-      ),
-      body: FutureBuilder<List<JsonPlaceholder>>(
-        future: futureJsonPlaceholder,
-        builder: (context, snapshot){
-          if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-          }else if (snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final jsonplaceholder = snapshot.data![index];
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.blue),
+        ),
+        body: FutureBuilder<List<JsonPlaceholder>>(
+            future: futureJsonPlaceholder,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      final jsonplaceholder = snapshot.data![index];
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(
-                                jsonplaceholder.thumbnailUrl
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                jsonplaceholder.title,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundImage: NetworkImage(
+                                            jsonplaceholder.thumbnailUrl),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          jsonplaceholder.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: TextButton(
+                                            onPressed: null,
+                                            child: Icon(Icons.more_horiz)),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                             Container(
-                              child: TextButton(
-                                onPressed: null, 
-                                child: Icon(Icons.more_horiz)),
+                              child: Image(
+                                  image: NetworkImage(jsonplaceholder.url)),
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                          onPressed: null,
+                                          child: Icon(Icons.favorite)),
+                                      TextButton(
+                                          onPressed: null,
+                                          child: Icon(Icons.comment)),
+                                    ],
+                                  ),
+                                  TextButton(
+                                      onPressed: null, child: Icon(Icons.send))
+                                ],
+                              ),
                             )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Image(
-                      image: NetworkImage(jsonplaceholder.url)
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: null, 
-                              child: Icon(Icons.favorite)
-                            ),
-                            TextButton(
-                              onPressed: null, 
-                              child: Icon(Icons.comment)
-                            ),
-                          ],
-                        ),
-                        TextButton(
-                          onPressed: null, 
-                          child: Icon(Icons.send))
-                      ],
-                    ),
-                  )
-                ]
-              );
+                          ]);
+                    });
+              } else {
+                return const Text('No se encontraron datos');
               }
-            );
-          }else {
-              return const Text('No se encontraron datos');
-          }
-        }
-      )
-      
-      
-      
-    );
+            }));
   }
 }

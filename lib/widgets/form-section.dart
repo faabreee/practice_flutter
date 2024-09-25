@@ -16,26 +16,50 @@ class FormSection extends StatelessWidget {
 
   const FormSection({
     Key? key,
-    required this.getName, required this.getLastName, required this.getNumber, required this.getAddress, required this.getEmail, required this.getPassword, required this.getProfile,
+    required this.getName,
+    required this.getLastName,
+    required this.getNumber,
+    required this.getAddress,
+    required this.getEmail,
+    required this.getPassword,
+    required this.getProfile,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InputForm(title: "Nombre", icon: const Icon(Icons.person), method: getName),
-        InputForm(title: "hola", icon: Icon(Icons.abc_sharp), method: (value) {
-          
-        },),
-        InputForm(title: "Apellido", icon: const Icon(Icons.person_2_outlined), method: getLastName),
-        InputForm(title: "Telefono", icon: const Icon(Icons.phone_android,), method: getNumber),
-        InputForm(title: "Ubicacion", icon: const Icon(Icons.directions,), method: getAddress),
-        InputForm(title: "Email", icon: const Icon(Icons.email), method: getEmail),
-        InputForm(title: "Contraseña", icon: const Icon(Icons.password), method: getPassword),
+        InputForm(
+            title: "Nombre", icon: const Icon(Icons.person), method: getName),
+        InputForm(
+          title: "hola",
+          icon: const Icon(Icons.abc_sharp),
+          method: (value) {},
+        ),
+        InputForm(
+            title: "Apellido",
+            icon: const Icon(Icons.person_2_outlined),
+            method: getLastName),
+        InputForm(
+            title: "Telefono",
+            icon: const Icon(
+              Icons.phone_android,
+            ),
+            method: getNumber),
+        InputForm(
+            title: "Ubicacion",
+            icon: const Icon(
+              Icons.directions,
+            ),
+            method: getAddress),
+        InputForm(
+            title: "Email", icon: const Icon(Icons.email), method: getEmail),
+        InputForm(
+            title: "Contraseña",
+            icon: const Icon(Icons.password),
+            method: getPassword),
         ImagePickerWidget(onImagePicked: getProfile)
       ],
     );
   }
 }
-
-
