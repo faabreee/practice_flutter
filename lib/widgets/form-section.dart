@@ -32,11 +32,6 @@ class FormSection extends StatelessWidget {
         InputForm(
             title: "Nombre", icon: const Icon(Icons.person), method: getName),
         InputForm(
-          title: "hola",
-          icon: const Icon(Icons.abc_sharp),
-          method: (value) {},
-        ),
-        InputForm(
             title: "Apellido",
             icon: const Icon(Icons.person_2_outlined),
             method: getLastName),

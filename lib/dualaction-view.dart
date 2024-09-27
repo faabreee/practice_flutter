@@ -8,8 +8,8 @@ class DualActionView extends StatefulWidget {
 }
 
 class _DualActionViewState extends State<DualActionView> {
-  String _resultadoFuncion2 = "";
-  String _resultadoFuncion3 = "";
+  String resultadoFuncion1 = "";
+  String resultadoFuncion2 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +22,15 @@ class _DualActionViewState extends State<DualActionView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Resultado Método 1: $_resultadoFuncion2',
+              'Resultado Método 1: $resultadoFuncion1',
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
-              'Resultado Método 2: $_resultadoFuncion3',
+              'Resultado Método 2: $resultadoFuncion2',
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
                 ejecutarMetodos();
@@ -46,7 +46,7 @@ class _DualActionViewState extends State<DualActionView> {
   void ejecutarMetodos() {
     primeraFuncion((valorEmitido) {
       setState(() {
-        _resultadoFuncion3 = valorEmitido;
+        resultadoFuncion2 = valorEmitido;
       });
     });
 
@@ -56,7 +56,7 @@ class _DualActionViewState extends State<DualActionView> {
   Future<void> segundaFuncion() async {
     await Future.delayed(Duration(seconds: 5));
     setState(() {
-      _resultadoFuncion2 = "Success";
+      resultadoFuncion1 = "Success";
     });
   }
 

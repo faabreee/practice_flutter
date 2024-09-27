@@ -22,20 +22,20 @@ class _ProfileViewState extends State<ProfileView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-             Center(
-              child: Image.file((user.profile != null && 
-              File(user.profile as String).existsSync() 
-              ? Image.file(File(user.profile as String),
-                  width: 300, height: 300, fit: BoxFit.cover,)
-                  : const Text (
-                       'Sin imagen',
-                       style: TextStyle(fontSize: 18),
-                  )) as File,
-            )),
-            // Center(
-            //   child: Image.file(user.profile!,
-            //       width: 300, height: 300, fit: BoxFit.cover),
-            // ),
+            //  Center(
+            //   child: Image.file((user.profile != null && 
+            //   File(user.profile as String).existsSync() 
+            //   ? Image.file(File(user.profile as String),
+            //       width: 300, height: 300, fit: BoxFit.cover,)
+            //       : const Text (
+            //            'Sin imagen',
+            //            style: TextStyle(fontSize: 18),
+            //       )) as File,
+            // )),
+            Center(
+              child: Image.file(user.profile!,
+                  width: 300, height: 300, fit: BoxFit.cover),
+            ),
             const SizedBox(height: 20),
             Column(
               children: [

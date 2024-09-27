@@ -13,14 +13,14 @@ class StopWatchView extends StatefulWidget {
 }
 
 class _StopWatchViewState extends State<StopWatchView> {
-  Timer? _timer;
+  Timer? timer;
   int contador = 0;
   bool running = false;
 
   void cronometro() {
     if (!running) {
       running = true;
-      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
           contador = contador + 1;
           log("Resultadooo ---------------> ${contador}");
@@ -31,7 +31,7 @@ class _StopWatchViewState extends State<StopWatchView> {
 
   void detener() {
     if (running) {
-      _timer?.cancel();
+      timer?.cancel();
       running = false;
     }
   }
