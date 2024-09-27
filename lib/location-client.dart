@@ -26,17 +26,10 @@ class _LocationClientViewState extends State<LocationClientView> {
   }
 
   @override
-  void dispose() {
-    // Limpiar recursos
-    localizacionCliente.detenerUbicacion();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Localización en Tiempo Real'),
+        title: Text('Location client'),
       ),
       body: Center(
         child: Column(
@@ -52,7 +45,7 @@ class _LocationClientViewState extends State<LocationClientView> {
               onPressed: (){
                 localizacionCliente.obtenerUbicacion()();
               },
-              child: Text('Obtener Ubicación'),
+              child: Text('Ubicar'),
             ),
           ],
         ),
