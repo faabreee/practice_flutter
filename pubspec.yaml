@@ -40,9 +40,15 @@ dependencies:
   image_picker: ^1.0.4
   permission_handler: ^11.0.1
   geolocator: ^11.1.0
+  retrofit: ^4.4.1
+  json_annotation: ^4.9.0
+  dio: ^5.7.0
   #location: ^5.0.3
 
 dev_dependencies:
+  retrofit_generator: ^5.0.0
+  build_runner: ^2.3.3
+  json_serializable: ^6.0.0 
   flutter_test:
     sdk: flutter
 
