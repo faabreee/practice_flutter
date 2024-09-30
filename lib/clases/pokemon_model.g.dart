@@ -8,10 +8,10 @@ part of 'pokemon_model.dart';
 
 PokemonCharacter _$PokemonCharacterFromJson(Map<String, dynamic> json) =>
     PokemonCharacter(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as int,
       name: json['name'] as String,
-      height: (json['height'] as num).toInt(),
-      weight: (json['weight'] as num).toInt(),
+      height: json['height'] as int,
+      weight: json['weight'] as int,
     );
 
 Map<String, dynamic> _$PokemonCharacterToJson(PokemonCharacter instance) =>

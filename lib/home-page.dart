@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/api-oauth2.dart';
 import 'package:flutter_practice/api-view.dart';
 import 'package:flutter_practice/pokemon_list_widget.dart';
 import 'package:flutter_practice/dualaction-view.dart';
@@ -36,7 +37,8 @@ class _HomePage extends State<HomePage> {
               ButtonHome(nombre: "Cliente Localizador", route: LocationClientView()),
               ButtonHome(nombre: "Action Dual", route: DualActionView()),
               ButtonHome(nombre: "Cronometro", route: StopWatchView()),
-              ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
+              ButtonHome(nombre: "ApiOAuth2", route: ApiOAuth2()),
+              // ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
             ],
           ),
         ),

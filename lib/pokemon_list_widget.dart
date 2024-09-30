@@ -35,20 +35,20 @@ class _PokemonListWidgetState extends State<PokemonListWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pokémon")),
+      appBar: AppBar(title: const Text("Pokémon")),
       body: pokemon != null
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("ID: ${pokemon!.id}"),
-                  Text("Nombre: ${pokemon!.name}"),
-                  Text("Altura: ${pokemon!.height}"),
-                  Text("Peso: ${pokemon!.weight}"),
+                  Text("ID:${pokemon!.id}"),
+                  Text("Nombre:${pokemon!.name}"),
+                  Text("Altura:${pokemon!.height}"),
+                  Text("Peso:${pokemon!.weight}"),
                 ],
               ),
             )
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }
