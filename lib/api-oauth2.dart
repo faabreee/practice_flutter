@@ -1,52 +1,59 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_practice/clases/auth_token.dart';
+import 'package:flutter_practice/clases/company.dart';
+import 'package:flutter_practice/services/api_oauth2.dart';
+import 'package:flutter_practice/services/company_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String tokenUrl = 'https://identityserver-service.abexa.pe/oauth2/token';
-  final String apiUrl = 'https://beedronewebapi.abexa.pe/api/Qr/companies';
+  final Dio _dio = Dio();
+  late final AuthService _authService;
+  late final CompanyService _companyService;
 
   String? accessToken;
   String? refreshToken;
   DateTime? tokenExpiration;
 
-  Future<void> authenticate() async {
-    final response = await http.post(Uri.parse(tokenUrl),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: {
-        'grant_type': 'password',
-        'scope': 'beex-manager-unitlinkerqr.read openid profile',
-        'username': 'jhromero',
-        'password': '1234',
-        'client_id': 'WcBAU4Wqa117az0sgBFsFmqMxrUa',
-        'client_secret': 'MCfIK1ZENbkD34ORyZyf9KfH9C8a',
-      },
-    );
-
-    final data = json.decode(response.body);
-    accessToken = data['access_token'];
-    refreshToken = data['refresh_token'];
-    tokenExpiration = DateTime.now().add(Duration(seconds: data['expires_in']));
+  ApiService() {
+    _authService = AuthService(_dio, baseUrl: dotenv.env['URL_TOKEN']!);
+    _companyService = CompanyService(_dio, baseUrl: dotenv.env['URL_API']!);
   }
 
-  Future<List<dynamic>> fetchCompanies() async {
-    await authenticate();
+  Future<void> authenticate() async {
+    try {
+      final AuthToken authToken = await _authService.authenticate(
+        grantType: 'password',
+        scope: 'beex-manager-unitlinkerqr.read openid profile',
+        username: 'jhromero',
+        password: '1234',
+        clientId: 'WcBAU4Wqa117az0sgBFsFmqMxrUa',
+        clientSecret: 'MCfIK1ZENbkD34ORyZyf9KfH9C8a',
+      );
 
-    final response = await http.get(Uri.parse(apiUrl),
-      headers: {
-        'accept': 'text/plain',
-        'Authorization': 'Bearer $accessToken',
-      },
-    );
+      accessToken = authToken.accessToken;
+      refreshToken = authToken.refreshToken;
+      tokenExpiration = DateTime.now().add(Duration(seconds: authToken.expiresIn));
+    } catch (e) {
+      print("Error during authentication: $e");
+    }
+  }
 
-    // log('Error fetching companies: ${response.body}');
-    log('Acces Token ----_> ${accessToken}');
-    log('Oauth url ----_> ${apiUrl}');
+  Future<List<Company>> getCompanies() async {
+    try {
+      if (accessToken == null || tokenExpiration!.isBefore(DateTime.now())) {
+        await authenticate();
+      }
 
-    final data = json.decode(response.body);
-    return data['content'];
-
+      final companies = await _companyService.fetchCompanies('Bearer $accessToken');
+      return companies;
+    } catch (e) {
+      print("Error fetching companies: $e");
+      return [];
+    }
   }
 }
 
@@ -57,7 +64,7 @@ class ApiOAuth2 extends StatefulWidget {
 
 class _ApiOAuth2State extends State<ApiOAuth2> {
   final ApiService apiService = ApiService();
-  List<dynamic>? companies;
+  List<Company>? companies;
 
   @override
   void initState() {
@@ -66,7 +73,7 @@ class _ApiOAuth2State extends State<ApiOAuth2> {
   }
 
   void _getCompanies() async {
-    final fetchedCompanies = await apiService.fetchCompanies();
+    final fetchedCompanies = await apiService.getCompanies();
     setState(() {
       companies = fetchedCompanies;
     });
@@ -75,24 +82,27 @@ class _ApiOAuth2State extends State<ApiOAuth2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("API OAuth2 Example"),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               onPressed: _getCompanies,
-              child: const Text("Obtener api oauth2"),
+              child: const Text("Obtener API OAuth2"),
             ),
             const SizedBox(height: 20),
-            if (companies != null) 
+            if (companies != null)
               Expanded(
                 child: ListView.builder(
                   itemCount: companies!.length,
                   itemBuilder: (context, index) {
                     final company = companies![index];
                     return ListTile(
-                      title: Text("${company['nomEmpresa']}"),
-                      subtitle: Text("Código: ${company['codEmpresa']}"),
+                      title: Text("${company.nomEmpresa}"),
+                      subtitle: Text("Código: ${company.codEmpresa}"),
                     );
                   },
                 ),
@@ -102,5 +112,4 @@ class _ApiOAuth2State extends State<ApiOAuth2> {
       ),
     );
   }
-
 }

@@ -38,7 +38,7 @@ class _HomePage extends State<HomePage> {
               ButtonHome(nombre: "Action Dual", route: DualActionView()),
               ButtonHome(nombre: "Cronometro", route: StopWatchView()),
               ButtonHome(nombre: "ApiOAuth2", route: ApiOAuth2()),
-              // ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
+              ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
             ],
           ),
         ),
