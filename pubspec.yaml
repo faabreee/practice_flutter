@@ -44,6 +44,8 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^5.7.0
   flutter_dotenv: ^5.1.0
+  logger: ^2.4.0
+  freezed: ^2.4.1
   #location: ^5.0.3
 
 dev_dependencies:

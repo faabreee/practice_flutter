@@ -44,25 +44,23 @@ class _DualActionViewState extends State<DualActionView> {
   }
 
   void ejecutarMetodos() {
-    primeraFuncion((valorEmitido) {
-      setState(() {
-        resultadoFuncion2 = valorEmitido;
-      });
-    });
+    primeraFuncion();
 
     segundaFuncion();
   }
 
+  Future<void> primeraFuncion() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      resultadoFuncion2 = "Completado";
+    });
+  }
+  
   Future<void> segundaFuncion() async {
     await Future.delayed(Duration(seconds: 5));
     setState(() {
-      resultadoFuncion1 = "Success";
+      resultadoFuncion1 = "Completado";
     });
   }
 
-  void primeraFuncion(Function(String) callback) {
-    Future.delayed(Duration(seconds: 1), () {
-      callback("Success");
-    });
-  }
 }
