@@ -14,13 +14,18 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   FormData formData = FormData(name: '', email: '', password: '');
 
+  String emailval = 'admin@admin.com';
+  String passwordval = '123456';
+
+  late bool errorAutentication = false;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Formulario con Freezed'),
+        title: Text('Login'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -28,21 +33,21 @@ class _LoginViewState extends State<LoginView> {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                initialValue: formData.name,
-                decoration: InputDecoration(labelText: 'Nombre'),
-                onChanged: (value) {
-                  setState(() {
-                    formData = formData.copyWith(name: value);
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su nombre';
-                  }
-                  return null;
-                },
-              ),
+              // TextFormField(
+              //   initialValue: formData.name,
+              //   decoration: InputDecoration(labelText: 'Nombre'),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       formData = formData.copyWith(name: value);
+              //     });
+              //   },
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Por favor ingrese su nombre';
+              //     }
+              //     return null;
+              //   },
+              // ),
               TextFormField(
                 initialValue: formData.email,
                 decoration: InputDecoration(labelText: 'Email'),
@@ -82,14 +87,24 @@ class _LoginViewState extends State<LoginView> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    print('Formulario válido: ${formData.toString()}');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                    print('Formulario válido: ${formData}');
+
+                    if (formData.email == emailval && formData.password == passwordval){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                    }else{
+                        errorAutentication = true;
+                    }
+                    print('form: ${formData.email} y val: ${emailval}');
                   }
                 },
                 child: Text('Enviar'),
               ),
+              SizedBox(height: 20,),
+              Text(
+                errorAutentication ? 'Error, email ${formData.email} y/o contraseña ${formData.password} incorrectos' : ''
+              )
             ],
           ),
         ),

@@ -26,23 +26,26 @@ class _HomePage extends State<HomePage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            children: [
-              ButtonHome(nombre: "Formulario", route: FormPage()),
-              ButtonHome(nombre: "Consumir libreria de Google Maps", route: MapView()),
-              ButtonHome(nombre: "Consumo de api", route: ApiView()),
-              ButtonHome(nombre: "JsonPlaceholder Api", route: MinioView()),
-
-              ButtonHome(nombre: "Cliente Localizador", route: LocationClientView()),
-              ButtonHome(nombre: "Action Dual", route: DualActionView()),
-              ButtonHome(nombre: "Cronometro", route: StopWatchView()),
-
-              ButtonHome(nombre: "ApiOAuth2", route: ApiOAuth2()),
-              ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
-              ButtonHome(nombre: "LoginView", route: LoginView()),
-            ],
+          child: SingleChildScrollView(
+            child: Wrap(
+              spacing: 20,
+              runSpacing: 20,
+              children: [
+                ButtonHome(nombre: "Formulario", route: FormPage()),
+                ButtonHome(nombre: "Consumir libreria de Google Maps", route: MapView()),
+                ButtonHome(nombre: "Consumo de api", route: ApiView()),
+                ButtonHome(nombre: "JsonPlaceholder Api", route: MinioView()),
+          
+                ButtonHome(nombre: "Cliente Localizador", route: LocationClientView()),
+                ButtonHome(nombre: "Action Dual", route: DualActionView()),
+                ButtonHome(nombre: "Cronometro", route: StopWatchView()),
+          
+                ButtonHome(nombre: "ApiOAuth2", route: ApiOAuth2()),
+                ButtonHome(nombre: "ApiRetrofit", route: PokemonListWidget()),
+                ButtonHome(nombre: "LoginView", route: LoginView()),
+                ButtonHome(nombre: "LoginView", route: LoginView()),
+              ],
+            ),
           ),
         ),
       )

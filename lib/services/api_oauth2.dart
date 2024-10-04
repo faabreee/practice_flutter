@@ -4,17 +4,16 @@ import 'package:retrofit/http.dart';
 
 part 'api_oauth2.g.dart';
 
-@RestApi(baseUrl: "https://identityserver-service.abexa.pe/oauth2/")
+@RestApi(baseUrl: "https://wso2is-service.abexa.pe")
 abstract class AuthService {
   factory AuthService(Dio dio, {String baseUrl}) = _AuthService;
 
-  @POST("/token")
+  @POST("/oauth2/token")
   Future<AuthToken> authenticate({
     @Field("grant_type") required String grantType,
     @Field("scope") required String scope,
     @Field("username") required String username,
     @Field("password") required String password,
-    @Field("client_id") required String clientId,
-    @Field("client_secret") required String clientSecret,
+    @Header("Authorization") String? authorization,
   });
 }

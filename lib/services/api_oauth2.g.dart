@@ -13,7 +13,7 @@ class _AuthService implements AuthService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://identityserver-service.abexa.pe/oauth2/';
+    baseUrl ??= 'https://wso2is-service.abexa.pe';
   }
 
   final Dio _dio;
@@ -26,19 +26,18 @@ class _AuthService implements AuthService {
     required scope,
     required username,
     required password,
-    required clientId,
-    required clientSecret,
+    authorization,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': authorization};
+    _headers.removeWhere((k, v) => v == null);
     final _data = {
       'grant_type': grantType,
       'scope': scope,
       'username': username,
       'password': password,
-      'client_id': clientId,
-      'client_secret': clientSecret,
     };
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<AuthToken>(Options(
@@ -48,7 +47,7 @@ class _AuthService implements AuthService {
     )
             .compose(
               _dio.options,
-              '/token',
+              '/oauth2/token',
               queryParameters: queryParameters,
               data: _data,
             )

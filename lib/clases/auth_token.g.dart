@@ -7,13 +7,19 @@ part of 'auth_token.dart';
 // **************************************************************************
 
 AuthToken _$AuthTokenFromJson(Map<String, dynamic> json) => AuthToken(
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
-      expiresIn: json['expiresIn'] as int,
+      access_token: json['access_token'] as String,
+      refresh_token: json['refresh_token'] as String,
+      scope: json['scope'] as String,
+      id_token: json['id_token'] as String,
+      token_type: json['token_type'] as String,
+      expires_in: json['expires_in'] as int,
     );
 
 Map<String, dynamic> _$AuthTokenToJson(AuthToken instance) => <String, dynamic>{
-      'accessToken': instance.accessToken,
-      'refreshToken': instance.refreshToken,
-      'expiresIn': instance.expiresIn,
+      'access_token': instance.access_token,
+      'refresh_token': instance.refresh_token,
+      'scope': instance.scope,
+      'id_token': instance.id_token,
+      'token_type': instance.token_type,
+      'expires_in': instance.expires_in,
     };

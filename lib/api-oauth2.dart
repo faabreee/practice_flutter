@@ -19,7 +19,7 @@ class ApiService {
   DateTime? tokenExpiration;
 
   ApiService() {
-    _authService = AuthService(_dio, baseUrl: dotenv.env['URL_TOKEN']!);
+    _authService = AuthService(_dio);
     _companyService = CompanyService(_dio, baseUrl: dotenv.env['URL_API']!);
   }
 
@@ -27,13 +27,13 @@ class ApiService {
     try {
       final AuthToken authToken = await _authService.authenticate(
         grantType: 'password',
-        scope: 'beex-manager-unitlinkerqr.read openid profile',
-        username: 'jhromero',
-        password: '1234',
-        clientId: 'WcBAU4Wqa117az0sgBFsFmqMxrUa',
-        clientSecret: 'MCfIK1ZENbkD34ORyZyf9KfH9C8a',
+        scope: 'openid beex-mobile.read beex-mobile.write  profile monitor-logging.read monitor-logging.write openid beex-payment.read beex-payment.write',
+        username: 'beex-mobile-app',
+        password: 'beex-mobile-app',            
+        authorization: 'Basic WWJvNGJNYmRuQXV1MllQRmtDNHpBek9KZ3BVYTpZTTF2ejJSNlhGdjllU2FBckxmaVhDYTZhMVVh'                                             
       );
-
+      log(authToken.toString());
+      print(authToken);
       accessToken = authToken.accessToken;
       refreshToken = authToken.refreshToken;
       tokenExpiration = DateTime.now().add(Duration(seconds: authToken.expiresIn));
